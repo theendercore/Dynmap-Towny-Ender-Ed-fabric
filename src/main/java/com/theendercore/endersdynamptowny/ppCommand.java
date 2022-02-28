@@ -2,21 +2,15 @@ package com.theendercore.endersdynamptowny;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.LiteralText;
-
-import javax.xml.transform.Result;
 import java.io.*;
-import java.lang.reflect.Type;
-import java.util.List;
 
-public class ppComand implements Command<ServerCommandSource> {
-    public ppComand() {
+public class ppCommand implements Command<ServerCommandSource> {
+    public ppCommand() {
     }
 
     @Override

@@ -9,7 +9,7 @@ public class PP {
         }
         String htmlLabel = "pp man big pp<br>pp Penis";
         EndersDynampTowny.LOGGER.info(EndersDynampTowny.pp + " work?");
-        AreaMarker areaMarker = EndersDynampTowny.markerSet.createAreaMarker("slnld", htmlLabel, true, "1.13.1 fast world eater ilmango", new double[]{6, 60}, new double[]{50, 5}, true);
+        AreaMarker areaMarker = EndersDynampTowny.markerSet.createAreaMarker("sln-ld", htmlLabel, true, "1.13.1 fast world eater ilmango", new double[]{6, 60}, new double[]{50, 5}, true);
 
     }
 

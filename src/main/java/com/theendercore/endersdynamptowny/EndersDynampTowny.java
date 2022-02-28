@@ -3,21 +3,14 @@ package com.theendercore.endersdynamptowny;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.network.MessageType;
 import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.CommandOutput;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.TranslatableText;
 import org.dynmap.DynmapCommonAPI;
 import org.dynmap.markers.*;
 import org.dynmap.DynmapCommonAPIListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileWriter;
-import java.util.UUID;
 
 public class EndersDynampTowny implements ModInitializer {
 
@@ -34,8 +27,8 @@ public class EndersDynampTowny implements ModInitializer {
 
         DynmapCommonAPIListener.register(new DynmapCommonAPIListener() {
             @Override
-            public void apiEnabled(DynmapCommonAPI dCAPI) {
-                dynmapCommonAPI = dCAPI;
+            public void apiEnabled(DynmapCommonAPI DynmapCommonAPI) {
+                dynmapCommonAPI = DynmapCommonAPI;
                 markerApi = dynmapCommonAPI.getMarkerAPI();
                 markerSet = markerApi.createMarkerSet("ender-dynmap-towny", "YES", null, true);
                 if (markerSet == null) {
@@ -48,7 +41,7 @@ public class EndersDynampTowny implements ModInitializer {
 
             LiteralCommandNode<ServerCommandSource> pp = CommandManager
                     .literal("pp")
-                    .executes(new ppComand())
+                    .executes(new ppCommand())
                     .build();
 
             dispatcher.getRoot().addChild(pp);
