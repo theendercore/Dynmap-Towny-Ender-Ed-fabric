@@ -16,6 +16,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import static com.theendercore.endersdynamptowny.EndersDynampTowny.enderLog;
+import static com.theendercore.endersdynamptowny.EndersDynampTowny.toggleLog;
 
 public class ppCommand implements Command<ServerCommandSource> {
     public ppCommand() {
@@ -28,38 +29,16 @@ public class ppCommand implements Command<ServerCommandSource> {
 
     @Override
     public int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String filePath = "pp.json";
-        BufferedReader br = null;
 
-
-        SendTown result = null;
-        try {
-            br = new BufferedReader(new FileReader(filePath));
-            result = gson.fromJson(br, SendTown.class);
-        } catch (FileNotFoundException e) {
-            enderLog("cant read file?");
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+        if (toggleLog)
+        {
+            toggleLog = false;
         }
-        SendTown[] penin = new Gson().fromJson(filePath, SendTown[].class);
-        say(context.getSource(), penin[0].name);
-
-        assert result != null;
-        say(context.getSource(), " --command-active");
-
-        //make new chunk
-        for (SendTown.Bloxs bloc : result.size) {
-            DynampEnder.removeChunkClaim(result, bloc.x, bloc.z);
-            DynampEnder.newChunkClaim(result, bloc);
+        else
+        {
+            toggleLog = true;
         }
+        say(context.getSource(), "toggleLog set to :"+ toggleLog);
         enderLog("pp --command-end");
         return 1;
     }

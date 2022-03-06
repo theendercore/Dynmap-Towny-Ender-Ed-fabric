@@ -27,7 +27,7 @@ public class DynampEnder {
         try {
             String areaMarkerId = sendTown.name + "-" + chunkX1 + "." + chunkZ1 + ";" + chunkX2 + "." + chunkZ2;
             AreaMarker areaMarker = markerSet.createAreaMarker(areaMarkerId, infoGen(sendTown, bloc), true, "world", new double[]{chunkX1, chunkX2}, new double[]{chunkZ1, chunkZ2}, true);
-            int color = 8;
+            int color = 7;
 //            enderLog(areaMarkerId);
             areaMarker.setFillStyle(areaMarker.getFillOpacity(), color);
             areaMarker.setLineStyle(areaMarker.getLineWeight(), areaMarker.getLineOpacity(), color);
@@ -37,6 +37,18 @@ public class DynampEnder {
     }
 
     public static void removeChunkClaim(SendTown sendTown, int x, int z) {
+        MarkerSet markerSet = EndersDynampTowny.markerSet;
+        Set<AreaMarker> areaMarkers = markerSet.getAreaMarkers();
+
+        for (AreaMarker areaMarker : areaMarkers) {
+            areaMarker.deleteMarker();
+            break;
+        }
+
+    }
+
+
+    public static void fancyRemoveChunkClaim(SendTown sendTown, int x, int z) {
         int chunkX1 = x * 16, chunkZ1 = z * 16, chunkX2 = (x + 1) * 16, chunkZ2 = (z + 1) * 16;
         String idToRemove = sendTown.name + "-" + chunkX1 + "." + chunkZ1 + ";" + chunkX2 + "." + chunkZ2;
         MarkerSet markerSet = EndersDynampTowny.markerSet;
@@ -48,7 +60,7 @@ public class DynampEnder {
 //            enderLog("Same Id : " + areaMarker.getMarkerID().equals(idToRemove));
             if (areaMarker.getMarkerID().equals(idToRemove)) {
                 areaMarker.deleteMarker();
-//                enderLog("Removed");
+                enderLog("Removed " + areaMarker.getMarkerID());
                 break;
             }
         }
@@ -78,7 +90,7 @@ public class DynampEnder {
         //make new chunk
         for (SendTown town : towns) {
             for (SendTown.Bloxs bloc : town.size) {
-                DynampEnder.removeChunkClaim(town, bloc.x, bloc.z);
+                DynampEnder.fancyRemoveChunkClaim(town, bloc.x, bloc.z);
                 DynampEnder.newChunkClaim(town, bloc);
             }
         }
@@ -88,9 +100,9 @@ public class DynampEnder {
     public static String infoGen(SendTown sendTown, SendTown.Bloxs bloc) {
 
         if (bloc.outpost) {
-            return "<h3>" + sendTown.name + " [Outpost]</h3>" + "Mayor: <span style=\"font-weight:bold;\">" + sendTown.mayor + " </span><br>" + "Residents: " + sendTown.residents + "<br>" + "Nation: " + sendTown.nation + "<br>" + " ";
+            return "<span style=\"font-weight:bold;font-size:200%;\">" + sendTown.name + " [Outpost]</span><br>" + "Mayor: <span style=\"font-weight:bold;\">" + sendTown.mayor + " </span><br>" + "Residents: <span style=\"font-weight:bold;\">" + sendTown.residents + " </span><br>" + "Nation: <span style=\"font-weight:bold;\">" + sendTown.nation + " </span><br>" + " ";
         }
-        return "<h3>" + sendTown.name + "</h3>" + "Mayor: " + sendTown.mayor + "<br>" + "Residents: " + sendTown.residents + "<br>" + "Nation: " + sendTown.nation + "<br>" + " ";
+        return "<span style=\"font-weight:bold;font-size:200%;\">" + sendTown.name + "</span><br>" + "Mayor: <span style=\"font-weight:bold;\">" + sendTown.mayor + " </span><br>" + "Residents: <span style=\"font-weight:bold;\">" + sendTown.residents + " </span><br>" + "Nation: <span style=\"font-weight:bold;\">" + sendTown.nation + " </span><br>" + " ";
     }
 
 }
